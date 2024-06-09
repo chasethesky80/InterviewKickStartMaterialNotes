@@ -64,7 +64,11 @@ public class SortingAlgorithms {
         return SortUtil.mergeSortHelper(mergeSort(leftHalf), mergeSort(rightHalf));
     }
 
-    // TC = O(2 ^ N/2)
+    /**
+     * TC = O(2 ^ N/2) - > Top Down Approach
+     * @param n
+     * @return
+     */
     private static Integer fibonacci(final Integer n) {
         if (n == 0 || n == 1) {
             return n;
@@ -72,7 +76,11 @@ public class SortingAlgorithms {
         return fibonacci(n-1) + fibonacci(n-2);
     }
 
-    // TC = O(N)
+    /**
+     * TC = O(N) - > Bottom Up Approach
+     * @param n
+     * @return
+     */
     private static Integer fibonacciLinear(final Integer n) {
         final List<Integer> result = new ArrayList<>();
         result.add(0, 0);
