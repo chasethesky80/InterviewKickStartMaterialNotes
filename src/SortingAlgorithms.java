@@ -77,7 +77,7 @@ public class SortingAlgorithms {
     }
 
     /**
-     * TC = O(N) - > Bottom Up Approach
+     * TC = O(N) - > Bottom Up Approach - Dynamic Programming style
      * @param n
      * @return
      */
