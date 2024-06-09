@@ -1,5 +1,6 @@
 import com.util.SortUtil;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,6 +11,8 @@ public class SortingAlgorithms {
         System.out.println("SORTED ARRAY BUBBLE SORT "+ performBubbleSort(Arrays.asList(10, 1, 7, 2, 6, 5, 3, 4, 8, 9)));
         System.out.println("SORTED ARRAY INSERTION SORT "+ performInsertionSort(Arrays.asList(10, 1, 7, 2, 6, 5, 3, 4, 8, 9)));
         System.out.println("SORTED ARRAY MERGE SORT " + mergeSort(Arrays.asList(10, 1, 7, 2, 6, 5, 3, 4, 8, 9)));
+        System.out.println("FIBONACCI RECURSIVE " + fibonacci(4));
+        System.out.println("FIBONACCI RECURSIVE " + fibonacciLinear(4));
     }
 
     private static List<Integer> performSelectionSort(final List<Integer> input) {
@@ -59,6 +62,23 @@ public class SortingAlgorithms {
         final List<Integer> leftHalf = input.subList(0, mid);
         final List<Integer> rightHalf = input.subList(mid, input.size());
         return SortUtil.mergeSortHelper(mergeSort(leftHalf), mergeSort(rightHalf));
+    }
+
+    private static Integer fibonacci(final Integer n) {
+        if (n == 0 || n == 1) {
+            return n;
+        }
+        return fibonacci(n-1) + fibonacci(n-2);
+    }
+
+    private static Integer fibonacciLinear(final Integer n) {
+        final List<Integer> result = new ArrayList<>();
+        result.add(0, 0);
+        result.add(1, 1);
+        for (int i = 2; i < n + 1; i++) {
+            result.add(i, Integer.sum(result.get(i-1), result.get(i-2)));
+        }
+        return result.get(n);
     }
 
     private static void swap(final List<Integer> input, final Integer left, final Integer right) {
