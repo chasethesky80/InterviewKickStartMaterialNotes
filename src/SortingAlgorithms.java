@@ -13,6 +13,7 @@ public class SortingAlgorithms {
         System.out.println("SORTED ARRAY MERGE SORT " + mergeSort(Arrays.asList(10, 1, 7, 2, 6, 5, 3, 4, 8, 9)));
         System.out.println("FIBONACCI RECURSIVE " + fibonacci(4));
         System.out.println("FIBONACCI RECURSIVE " + fibonacciLinear(4));
+        System.out.println("FIBONACCI RECURSIVE WITH GIVEN BASE CASES "+ fibonacciRecursionImproved(4, 2, 4));
     }
 
     private static List<Integer> performSelectionSort(final List<Integer> input) {
@@ -74,6 +75,18 @@ public class SortingAlgorithms {
             return n;
         }
         return fibonacci(n-1) + fibonacci(n-2);
+    }
+
+    /**
+     * TC = O(N) - > Fibonacci linear sequence with the given first 2 base cases
+     * @param n
+     * @return
+     */
+    private static Integer fibonacciRecursionImproved(final Integer n, final Integer baseCase1, final Integer baseCase2) {
+        if (n == 0) {
+            return baseCase1;
+        }
+        return fibonacciRecursionImproved(n-1, baseCase2, baseCase1 + baseCase2);
     }
 
     /**
