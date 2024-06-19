@@ -27,4 +27,41 @@ public class SortUtil {
         }
         return auxillary;
     }
+
+    public static void quickSortHelper(final List<Integer> input, final int startIndex, final int endIndex) {
+        if (startIndex >= endIndex) {
+            return;
+        }
+
+        Integer pivot = startIndex;
+        int leftIndex = startIndex + 1;
+        int rightIndex = endIndex;
+        while (rightIndex >= leftIndex) {
+            if (input.get(leftIndex).compareTo(pivot) > 0 && input.get(rightIndex).compareTo(pivot) < 0) {
+                swap(input, leftIndex, rightIndex);
+            }
+            if (input.get(leftIndex).compareTo(pivot) <= 0) {
+                leftIndex = leftIndex + 1;
+            }
+            if (input.get(rightIndex).compareTo(pivot) >= 0) {
+                rightIndex = rightIndex - 1;
+            }
+        }
+        swap(input, pivot, rightIndex);
+        int leftSubArrayLength = rightIndex - 1 - startIndex;
+        int rightSubArrayLength = endIndex - (rightIndex + 1);
+        if (leftSubArrayLength < rightSubArrayLength) {
+            quickSortHelper(input, startIndex, rightIndex-1);
+            quickSortHelper(input, rightIndex + 1, endIndex);
+        } else {
+            quickSortHelper(input, rightIndex + 1, endIndex);
+            quickSortHelper(input, startIndex, rightIndex-1);
+        }
+    }
+
+    public static void swap(final List<Integer> input, final Integer left, final Integer right) {
+        int temp = input.get(left);
+        input.set(left, input.get(right));
+        input.set(right, temp);
+    }
 }

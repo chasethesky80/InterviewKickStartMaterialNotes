@@ -2,7 +2,6 @@ package com.ik.algorithms.sorting;
 
 import com.ik.util.SortUtil;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -12,7 +11,8 @@ public class SortingAlgorithms {
         System.out.println("SORTED ARRAY SELECTION SORT "+ performSelectionSort(Arrays.asList(7, 5, 4, 2, 1, 3)));
         System.out.println("SORTED ARRAY BUBBLE SORT "+ performBubbleSort(Arrays.asList(10, 1, 7, 2, 6, 5, 3, 4, 8, 9)));
         System.out.println("SORTED ARRAY INSERTION SORT "+ performInsertionSort(Arrays.asList(10, 1, 7, 2, 6, 5, 3, 4, 8, 9)));
-        System.out.println("SORTED ARRAY MERGE SORT " + mergeSort(Arrays.asList(10, 1, 7, 2, 6, 5, 3, 4, 8, 9)));
+        System.out.println("SORTED ARRAY MERGE SORT " + performMergeSort(Arrays.asList(10, 1, 7, 2, 6, 5, 3, 4, 8, 9)));
+        System.out.println("SORTED ARRAY QUICK SORT " + performQuickSort(Arrays.asList(10, 1, 7, 2, 6, 5, 3, 4, 8, 9)));
     }
 
     private static List<Integer> performSelectionSort(final List<Integer> input) {
@@ -25,7 +25,7 @@ public class SortingAlgorithms {
                     minIndex = j;
                 }
             }
-            swap(input, i, minIndex);
+            SortUtil.swap(input, i, minIndex);
         }
         return input;
     }
@@ -34,7 +34,7 @@ public class SortingAlgorithms {
         for (int i =0; i < input.size(); i++) {
           for (int j = input.size() -1; j >= i+1; j--) {
               if (input.get(j-1).compareTo(input.get(j)) > 0) {
-                 swap(input, j-1, j);
+                 SortUtil.swap(input, j-1, j);
               }
           }
         }
@@ -54,19 +54,19 @@ public class SortingAlgorithms {
         return input;
     }
 
-    private static List<Integer> mergeSort(final List<Integer> input) {
+    private static List<Integer> performMergeSort(final List<Integer> input) {
         if (input.size() == 1) {
             return input;
         }
         int mid = input.size()/ 2;
         final List<Integer> leftHalf = input.subList(0, mid);
         final List<Integer> rightHalf = input.subList(mid, input.size());
-        return SortUtil.mergeSortHelper(mergeSort(leftHalf), mergeSort(rightHalf));
+        return SortUtil.mergeSortHelper(performMergeSort(leftHalf), performMergeSort(rightHalf));
     }
 
-    private static void swap(final List<Integer> input, final Integer left, final Integer right) {
-        int temp = input.get(left);
-        input.set(left, input.get(right));
-        input.set(right, temp);
+    private static List<Integer> performQuickSort(final List<Integer> input) {
+        SortUtil.quickSortHelper(input, 0, input.size() - 1);
+        return input;
     }
+
 }
