@@ -8,11 +8,19 @@ import java.util.List;
 public class SortingAlgorithms {
 
     public static void main(String[] args) {
+        final List<Integer> input = Arrays.asList(10, 1, 7, 2, 6, 5, 3, 4, 8, 9);
         System.out.println("SORTED ARRAY SELECTION SORT "+ performSelectionSort(Arrays.asList(7, 5, 4, 2, 1, 3)));
         System.out.println("SORTED ARRAY BUBBLE SORT "+ performBubbleSort(Arrays.asList(10, 1, 7, 2, 6, 5, 3, 4, 8, 9)));
         System.out.println("SORTED ARRAY INSERTION SORT "+ performInsertionSort(Arrays.asList(10, 1, 7, 2, 6, 5, 3, 4, 8, 9)));
         System.out.println("SORTED ARRAY MERGE SORT " + performMergeSort(Arrays.asList(10, 1, 7, 2, 6, 5, 3, 4, 8, 9)));
-        System.out.println("SORTED ARRAY QUICK SORT " + performQuickSort(Arrays.asList(10, 1, 7, 2, 6, 5, 3, 4, 8, 9)));
+        performQuickSort(input, 0, input.size() - 1 );
+        System.out.println("SORTED ARRAY QUICK SORT "+ input);
+        /**
+         * 2ND INPUT FOR QUICK SORT
+         */
+        final List<Integer> arr = Arrays.asList(7, 5, 4, 2, 1, 3);
+        performQuickSort(arr, 0, arr.size() - 1 );
+        System.out.println("SORTED ARRAY QUICK SORT "+ arr);
     }
 
     private static List<Integer> performSelectionSort(final List<Integer> input) {
@@ -64,9 +72,12 @@ public class SortingAlgorithms {
         return SortUtil.mergeSortHelper(performMergeSort(leftHalf), performMergeSort(rightHalf));
     }
 
-    private static List<Integer> performQuickSort(final List<Integer> input) {
-        SortUtil.quickSortHelper(input, 0, input.size() - 1);
-        return input;
+    private static void performQuickSort(final List<Integer> input, final Integer left, final Integer right) {
+        if (left >= right) {
+            return;
+        }
+        int idx = SortUtil.rearrange(input, left, right);
+        performQuickSort(input, left, idx-1);
+        performQuickSort(input, idx + 1, right);
     }
-
 }

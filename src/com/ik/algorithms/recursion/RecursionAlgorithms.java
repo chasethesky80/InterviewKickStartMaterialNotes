@@ -1,7 +1,6 @@
 package com.ik.algorithms.recursion;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class RecursionAlgorithms {
@@ -10,6 +9,8 @@ public class RecursionAlgorithms {
         System.out.println("FIBONACCI RECURSIVE " + fibonacci(4));
         System.out.println("FIBONACCI RECURSIVE " + fibonacciLinear(4));
         System.out.println("FIBONACCI RECURSIVE WITH GIVEN BASE CASES "+ fibonacciRecursionImproved(4, 2, 4));
+        System.out.println("PEOPLE BEHIND ME "+ peopleBehindMe(7));
+        System.out.println("N RAISED TO POWER K "+ nRaiseToPowerK(3, 3));
     }
 
     /**
@@ -49,5 +50,19 @@ public class RecursionAlgorithms {
             result.add(i, Integer.sum(result.get(i-1), result.get(i-2)));
         }
         return result.get(n);
+    }
+
+    private static Integer peopleBehindMe(final Integer n) {
+        if (n == 1) {
+            return 1;
+        }
+        return 1 + peopleBehindMe(n-1);
+    }
+
+    private static Integer nRaiseToPowerK(int n, int k) {
+        if (k == 0) {
+            return 1;
+        }
+        return n * nRaiseToPowerK(n, k-1);
     }
 }

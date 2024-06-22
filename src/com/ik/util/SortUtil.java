@@ -64,4 +64,27 @@ public class SortUtil {
         input.set(left, input.get(right));
         input.set(right, temp);
     }
+
+    /**
+     * Rearrange the array without using extra space so that elements <= the pivot (A[0]) are to the left of the pivot and
+     * the elements greater than pivot are to the right of the pivot
+     * @param input
+     * @return
+     */
+    public static int rearrange(final List<Integer> input, final Integer l, final Integer r) {
+        int i = l+1, j = r, pivot = l;
+        while (i < j) {
+            if (input.get(i) <= input.get(pivot)) {
+                i++;
+            } else if (input.get(j) > input.get(pivot)) {
+                j--;
+            } else {
+                swap(input, i, j);
+                i++;
+                j--;
+            }
+        }
+        swap(input, l, i-1);
+        return i-1;
+    }
 }
