@@ -1,6 +1,7 @@
 package com.ik.algorithms.recursion;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class RecursionAlgorithms {
@@ -11,6 +12,8 @@ public class RecursionAlgorithms {
         System.out.println("FIBONACCI RECURSIVE WITH GIVEN BASE CASES "+ fibonacciRecursionImproved(4, 2, 4));
         System.out.println("PEOPLE BEHIND ME "+ peopleBehindMe(7));
         System.out.println("N RAISED TO POWER K "+ nRaiseToPowerK(3, 3));
+        System.out.println("NO OF SUBSETS FOR SET OF SIZE N "+noOfSubsetsForSet(5));
+        System.out.println("ENUMERATE BINARY STRINGS OF LENGTH N "+ enumerateBinaryStrings(4));
     }
 
     /**
@@ -64,5 +67,26 @@ public class RecursionAlgorithms {
             return 1;
         }
         return n * nRaiseToPowerK(n, k-1);
+    }
+
+    private static Integer noOfSubsetsForSet(int N) {
+        if (N == 0) {
+            return 1;
+        }
+        return 2 * noOfSubsetsForSet(N-1);
+    }
+
+    private static List<String> enumerateBinaryStrings(int N) {
+        if (N == 1) {
+            return Arrays.asList("0", "1");
+        }
+
+        final List<String> result = new ArrayList<>();
+        final List<String> prevResult = enumerateBinaryStrings(N-1);
+        for (String item: prevResult) {
+            result.add(item.concat("0"));
+            result.add(item.concat("1"));
+        }
+        return result;
     }
 }
