@@ -14,7 +14,12 @@ public class RecursionAlgorithms {
         System.out.println("N RAISED TO POWER K "+ nRaiseToPowerK(3, 3));
         System.out.println("NO OF SUBSETS FOR SET OF SIZE N "+noOfSubsetsForSet(5));
         System.out.println("ENUMERATE BINARY STRINGS OF LENGTH N RECURSIVE "+ enumerateBinaryStringsRecursive(4));
+        System.out.println("ENUMERATE BINARY STRINGS OF LENGTH N RECURSIVE IMPROVED ");
+        enumerateBinaryStringsRecursiveImproved(3);
+        System.out.println();
         System.out.println("ENUMERATE BINARY STRINGS OF LENGTH N ITERATIVE "+ enumerateStringsIterative(3));
+        System.out.println("ENUMERATE DECIMAL STRINGS OF LENGTH N RECURSIVE ");
+        enumerateDecimalStringsRecursiveImproved(2);
     }
 
     /**
@@ -79,10 +84,13 @@ public class RecursionAlgorithms {
 
     private static List<String> enumerateBinaryStringsRecursive(int N) {
         if (N == 1) {
-            return Arrays.asList("0", "1");
+            ArrayList<String> arrayList = new ArrayList<>();
+            arrayList.add("0");
+            arrayList.add("1");
+            return arrayList;
         }
 
-        final List<String> result = new ArrayList<>();
+        final ArrayList<String> result = new ArrayList<>();
         final List<String> prevResult = enumerateBinaryStringsRecursive(N-1);
         for (String item: prevResult) {
             result.add(item.concat("0"));
@@ -102,5 +110,33 @@ public class RecursionAlgorithms {
             result = newResult;
         }
         return result;
+    }
+
+    private static void enumerateBinaryStringsRecursiveImproved(int N) {
+        enumerateBinaryStringsRecursiveHelper("", N);
+    }
+
+    private static void enumerateBinaryStringsRecursiveHelper(String slate, int N) {
+        if (N == 0) {
+            System.out.print(slate.concat(" "));
+        } else {
+            enumerateBinaryStringsRecursiveHelper(slate.concat("0"), N - 1);
+            enumerateBinaryStringsRecursiveHelper(slate.concat("1"), N - 1);
+        }
+    }
+
+    private static void enumerateDecimalStringsRecursiveImproved(int N) {
+        enumerateDecimalStringsRecursiveHelper("", N);
+    }
+
+    private static void enumerateDecimalStringsRecursiveHelper(String slate, int N) {
+        if (N == 0) {
+            System.out.print(slate.concat(" "));
+        } else {
+            final List<String> suffixes = List.of("0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
+            for (String suffix: suffixes) {
+                enumerateDecimalStringsRecursiveHelper(slate.concat(suffix), N - 1);
+            }
+        }
     }
 }
