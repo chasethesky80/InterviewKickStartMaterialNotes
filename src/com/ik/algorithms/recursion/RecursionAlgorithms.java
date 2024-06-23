@@ -13,7 +13,8 @@ public class RecursionAlgorithms {
         System.out.println("PEOPLE BEHIND ME "+ peopleBehindMe(7));
         System.out.println("N RAISED TO POWER K "+ nRaiseToPowerK(3, 3));
         System.out.println("NO OF SUBSETS FOR SET OF SIZE N "+noOfSubsetsForSet(5));
-        System.out.println("ENUMERATE BINARY STRINGS OF LENGTH N "+ enumerateBinaryStrings(4));
+        System.out.println("ENUMERATE BINARY STRINGS OF LENGTH N RECURSIVE "+ enumerateBinaryStringsRecursive(4));
+        System.out.println("ENUMERATE BINARY STRINGS OF LENGTH N ITERATIVE "+ enumerateStringsIterative(3));
     }
 
     /**
@@ -76,16 +77,29 @@ public class RecursionAlgorithms {
         return 2 * noOfSubsetsForSet(N-1);
     }
 
-    private static List<String> enumerateBinaryStrings(int N) {
+    private static List<String> enumerateBinaryStringsRecursive(int N) {
         if (N == 1) {
             return Arrays.asList("0", "1");
         }
 
         final List<String> result = new ArrayList<>();
-        final List<String> prevResult = enumerateBinaryStrings(N-1);
+        final List<String> prevResult = enumerateBinaryStringsRecursive(N-1);
         for (String item: prevResult) {
             result.add(item.concat("0"));
             result.add(item.concat("1"));
+        }
+        return result;
+    }
+
+    private static List<String> enumerateStringsIterative(int N) {
+        List<String> result = Arrays.asList("0", "1");
+        for (int i = 2; i <= N; i++) {
+            final List<String> newResult = new ArrayList<>();
+            for (String s: result) {
+                newResult.add(s.concat("0"));
+                newResult.add(s.concat("1"));
+            }
+            result = newResult;
         }
         return result;
     }
