@@ -3,6 +3,7 @@ package com.ik.algorithms.recursion;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class RecursionAlgorithms {
 
@@ -18,8 +19,10 @@ public class RecursionAlgorithms {
         enumerateBinaryStringsRecursiveImproved(3);
         System.out.println();
         System.out.println("ENUMERATE BINARY STRINGS OF LENGTH N ITERATIVE "+ enumerateStringsIterative(3));
-        System.out.println("ENUMERATE DECIMAL STRINGS OF LENGTH N RECURSIVE ");
-        enumerateDecimalStringsRecursiveImproved(2);
+        System.out.println("ENUMERATE ALL STRINGS OF LENGTH N RECURSIVE REPETITIONS ALLOWED FROM INPUT STRING");
+        enumerateDecimalStringsRecursiveImproved(2, List.of("0", "1", "2", "3", "4", "5", "6", "7", "8", "9"));
+        System.out.println("ENUMERATE ALL STRINGS OF LENGTH N RECURSIVE REPETITIONS NOT ALLOWED");
+        enumerateDecimalStringsWithRepetitionsNotAllowed(List.of("0", "1", "2"));
     }
 
     /**
@@ -116,7 +119,7 @@ public class RecursionAlgorithms {
         enumerateBinaryStringsRecursiveHelper("", N);
     }
 
-    private static void enumerateBinaryStringsRecursiveHelper(String slate, int N) {
+    private static void enumerateBinaryStringsRecursiveHelper(final String slate, int N) {
         if (N == 0) {
             System.out.print(slate.concat(" "));
         } else {
@@ -125,18 +128,31 @@ public class RecursionAlgorithms {
         }
     }
 
-    private static void enumerateDecimalStringsRecursiveImproved(int N) {
-        enumerateDecimalStringsRecursiveHelper("", N);
+    private static void enumerateDecimalStringsRecursiveImproved(int N, final List<String> input) {
+        enumerateDecimalStringsRecursiveHelper("", N, input);
     }
 
-    private static void enumerateDecimalStringsRecursiveHelper(String slate, int N) {
+    private static void enumerateDecimalStringsRecursiveHelper(final String slate, int N, final List<String> input) {
         if (N == 0) {
             System.out.print(slate.concat(" "));
         } else {
-            final List<String> suffixes = List.of("0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
-            for (String suffix: suffixes) {
-                enumerateDecimalStringsRecursiveHelper(slate.concat(suffix), N - 1);
+            for (String suffix: input) {
+                enumerateDecimalStringsRecursiveHelper(slate.concat(suffix), N - 1, input);
             }
+        }
+    }
+
+    private static void enumerateDecimalStringsWithRepetitionsNotAllowed(final List<String> input) {
+        enumerateDecimalStringsWithRepetitionsNotAllowedHelper("", input);
+    }
+
+    private static void enumerateDecimalStringsWithRepetitionsNotAllowedHelper(final String slate, final List<String> input) {
+        if (input.isEmpty()) {
+            System.out.print(slate.concat(" "));
+        }
+        for (int i = 0; i < input.size(); i++) {
+            final List<String> newList = Stream.concat(input.subList(0, i).stream(), input.subList(i+1, input.size()).stream()).toList();
+            enumerateDecimalStringsWithRepetitionsNotAllowedHelper(slate.concat(input.get(i)), newList);
         }
     }
 }
