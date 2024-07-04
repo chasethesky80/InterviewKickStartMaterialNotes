@@ -23,6 +23,8 @@ public class RecursionAlgorithms {
         enumerateDecimalStringsRecursiveImproved(2, List.of("0", "1", "2", "3", "4", "5", "6", "7", "8", "9"));
         System.out.println("ENUMERATE ALL STRINGS OF LENGTH N RECURSIVE REPETITIONS NOT ALLOWED");
         enumerateDecimalStringsWithRepetitionsNotAllowed(List.of("0", "1", "2"));
+        System.out.println("ENUMERATE ALL STRINGS OF LENGTH N WITH TRANSFORMING THE CASE OF EACH LETTER OF STRING ");
+        enumerateCaseTransformationsRecursiveHelper("", 0, "a1b2");
     }
 
     /**
@@ -153,6 +155,19 @@ public class RecursionAlgorithms {
         for (int i = 0; i < input.size(); i++) {
             final List<String> newList = Stream.concat(input.subList(0, i).stream(), input.subList(i+1, input.size()).stream()).toList();
             enumerateDecimalStringsWithRepetitionsNotAllowedHelper(slate.concat(input.get(i)), newList);
+        }
+    }
+
+    private static void enumerateCaseTransformationsRecursiveHelper(final String slate, int index, String input) {
+        if (index == input.length() - 1) {
+            System.out.print(slate.concat(" "));
+        } else {
+            if (Character.isDigit(input.charAt(index))) {
+                enumerateCaseTransformationsRecursiveHelper(slate.concat(String.valueOf(input.charAt(index))), index + 1, input);
+            } else {
+                enumerateCaseTransformationsRecursiveHelper(slate.concat(String.valueOf(input.charAt(index)).toLowerCase()), index + 1, input);
+                enumerateCaseTransformationsRecursiveHelper(slate.concat(String.valueOf(input.charAt(index)).toUpperCase()), index + 1, input);
+            }
         }
     }
 }
