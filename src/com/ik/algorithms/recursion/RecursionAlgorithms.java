@@ -2,6 +2,7 @@ package com.ik.algorithms.recursion;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -24,7 +25,9 @@ public class RecursionAlgorithms {
         System.out.println("ENUMERATE ALL STRINGS OF LENGTH N RECURSIVE REPETITIONS NOT ALLOWED");
         enumerateDecimalStringsWithRepetitionsNotAllowed(List.of("0", "1", "2"));
         System.out.println("ENUMERATE ALL STRINGS OF LENGTH N WITH TRANSFORMING THE CASE OF EACH LETTER OF STRING ");
-        enumerateCaseTransformationsRecursiveHelper("", 0, "a1b2");
+        final List<String> result = new ArrayList<>();
+        enumerateCaseTransformationsRecursiveHelper("", 0, "a1b2", result);
+        System.out.println(result);
     }
 
     /**
@@ -158,15 +161,15 @@ public class RecursionAlgorithms {
         }
     }
 
-    private static void enumerateCaseTransformationsRecursiveHelper(final String slate, int index, String input) {
+    private static void enumerateCaseTransformationsRecursiveHelper(final String slate, int index, String input, final List<String> result) {
         if (index == input.length() - 1) {
-            System.out.print(slate.concat(" "));
+            result.add(slate.concat(" "));
         } else {
             if (Character.isDigit(input.charAt(index))) {
-                enumerateCaseTransformationsRecursiveHelper(slate.concat(String.valueOf(input.charAt(index))), index + 1, input);
+                enumerateCaseTransformationsRecursiveHelper(slate.concat(String.valueOf(input.charAt(index))), index + 1, input, result);
             } else {
-                enumerateCaseTransformationsRecursiveHelper(slate.concat(String.valueOf(input.charAt(index)).toLowerCase()), index + 1, input);
-                enumerateCaseTransformationsRecursiveHelper(slate.concat(String.valueOf(input.charAt(index)).toUpperCase()), index + 1, input);
+                enumerateCaseTransformationsRecursiveHelper(slate.concat(String.valueOf(input.charAt(index)).toLowerCase()), index + 1, input, result);
+                enumerateCaseTransformationsRecursiveHelper(slate.concat(String.valueOf(input.charAt(index)).toUpperCase()), index + 1, input, result);
             }
         }
     }
