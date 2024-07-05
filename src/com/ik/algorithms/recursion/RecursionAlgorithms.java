@@ -2,6 +2,7 @@ package com.ik.algorithms.recursion;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -32,6 +33,10 @@ public class RecursionAlgorithms {
         final List<Character> buffer = new ArrayList<>();
         enumerateCaseTransformationsRecursiveHelperImproved(buffer, 0, "a1b2", result);
         System.out.println(result);
+        System.out.println("ENUMERATE ALL SUBSETS OF A GIVEN SET OF INTEGERS ");
+        final List<List<Integer>> subsetResult = new ArrayList<>();
+        enumerateAllSetsOfAnInputSet(new ArrayList<>(), Arrays.asList(4, 2, 5), 0);
+        System.out.println(subsetResult);
     }
 
     /**
@@ -209,6 +214,17 @@ public class RecursionAlgorithms {
                 enumerateCaseTransformationsRecursiveHelperImproved(buffer, index + 1, input, result);
                 buffer.remove(buffer.size() - 1);
             }
+        }
+    }
+
+    private static void enumerateAllSetsOfAnInputSet(final List<Integer> slate, final List<Integer> input, final int index) {
+        if (index == input.size()) {
+            System.out.println(slate);
+        } else {
+            slate.add(input.get(index));
+            enumerateAllSetsOfAnInputSet(slate, input,index+1);
+            slate.remove(slate.size() - 1);
+            enumerateAllSetsOfAnInputSet(slate, input,index+1);
         }
     }
 }
