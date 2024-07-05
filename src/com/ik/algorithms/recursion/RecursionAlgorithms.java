@@ -2,7 +2,6 @@ package com.ik.algorithms.recursion;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -33,10 +32,15 @@ public class RecursionAlgorithms {
         final List<Character> buffer = new ArrayList<>();
         enumerateCaseTransformationsRecursiveHelperImproved(buffer, 0, "a1b2", result);
         System.out.println(result);
-        System.out.println("ENUMERATE ALL SUBSETS OF A GIVEN SET OF INTEGERS ");
+        System.out.println("PRINT ALL SUBSETS OF A GIVEN SET OF INTEGERS ");
         final List<List<Integer>> subsetResult = new ArrayList<>();
-        enumerateAllSetsOfAnInputSet(new ArrayList<>(), Arrays.asList(4, 2, 5), 0);
+        printAllSetsOfAnInputSet(new ArrayList<>(), Arrays.asList(4, 2, 5), 0);
         System.out.println(subsetResult);
+
+        System.out.println("ENUMERATE ALL SUBSETS OF A GIVEN SET OF INTEGERS ");
+        final List<List<Integer>> subsetResultList = new ArrayList<>();
+        enumerateAllSetsOfAnInputSet(new ArrayList<>(), Arrays.asList(4, 2, 5), 0, subsetResultList);
+        System.out.println(subsetResultList);
     }
 
     /**
@@ -217,14 +221,27 @@ public class RecursionAlgorithms {
         }
     }
 
-    private static void enumerateAllSetsOfAnInputSet(final List<Integer> slate, final List<Integer> input, final int index) {
+    private static void printAllSetsOfAnInputSet(final List<Integer> slate, final List<Integer> input, final int index) {
         if (index == input.size()) {
             System.out.println(slate);
         } else {
             slate.add(input.get(index));
-            enumerateAllSetsOfAnInputSet(slate, input,index+1);
+            printAllSetsOfAnInputSet(slate, input,index+1);
             slate.remove(slate.size() - 1);
-            enumerateAllSetsOfAnInputSet(slate, input,index+1);
+            printAllSetsOfAnInputSet(slate, input,index+1);
+        }
+    }
+
+    private static void enumerateAllSetsOfAnInputSet(final List<Integer> slate, final List<Integer> input, final int index,
+                                                     final List<List<Integer>> result) {
+        if (index == input.size()) {
+            result.add(slate);
+            return;
+        } else {
+            slate.add(input.get(index));
+            printAllSetsOfAnInputSet(slate, input,index+1);
+            slate.remove(slate.size() - 1);
+            printAllSetsOfAnInputSet(slate, input,index+1);
         }
     }
 }
