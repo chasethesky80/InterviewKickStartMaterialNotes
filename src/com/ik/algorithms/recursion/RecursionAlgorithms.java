@@ -2,7 +2,6 @@ package com.ik.algorithms.recursion;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -27,6 +26,11 @@ public class RecursionAlgorithms {
         System.out.println("ENUMERATE ALL STRINGS OF LENGTH N WITH TRANSFORMING THE CASE OF EACH LETTER OF STRING ");
         final List<String> result = new ArrayList<>();
         enumerateCaseTransformationsRecursiveHelper("", 0, "a1b2", result);
+        System.out.println(result);
+        result.clear();
+        System.out.println("ENUMERATE ALL STRINGS OF LENGTH N WITH TRANSFORMING THE CASE OF EACH LETTER OF STRING IMPROVED ");
+        final List<Character> buffer = new ArrayList<>();
+        enumerateCaseTransformationsRecursiveHelperImproved(buffer, 0, "a1b2", result);
         System.out.println(result);
     }
 
@@ -161,8 +165,15 @@ public class RecursionAlgorithms {
         }
     }
 
+    /**
+     * TC = (2^N * N^2) and SC = O(N^2)
+     * @param slate
+     * @param index
+     * @param input
+     * @param result
+     */
     private static void enumerateCaseTransformationsRecursiveHelper(final String slate, int index, String input, final List<String> result) {
-        if (index == input.length() - 1) {
+        if (index == input.length()) {
             result.add(slate.concat(" "));
         } else {
             if (Character.isDigit(input.charAt(index))) {
@@ -170,6 +181,33 @@ public class RecursionAlgorithms {
             } else {
                 enumerateCaseTransformationsRecursiveHelper(slate.concat(String.valueOf(input.charAt(index)).toLowerCase()), index + 1, input, result);
                 enumerateCaseTransformationsRecursiveHelper(slate.concat(String.valueOf(input.charAt(index)).toUpperCase()), index + 1, input, result);
+            }
+        }
+    }
+
+    /**
+     * TC = (2^N * N) and SC = O(N^2) // IMPROVED TIME COMPLEXITY
+     * @param buffer
+     * @param index
+     * @param input
+     * @param result
+     */
+    private static void enumerateCaseTransformationsRecursiveHelperImproved(final List<Character> buffer, final int index, final String input, final List<String> result) {
+        if (index == input.length()) {
+            result.add(buffer.toString());
+        } else {
+            if (Character.isDigit(input.charAt(index))) {
+                buffer.add(input.charAt(index));
+                enumerateCaseTransformationsRecursiveHelperImproved(buffer, index + 1, input, result);
+                buffer.remove(buffer.size() - 1);
+            } else {
+                buffer.add(Character.toLowerCase(input.charAt(index)));
+                enumerateCaseTransformationsRecursiveHelperImproved(buffer, index + 1, input, result);
+                buffer.remove(buffer.size() - 1);
+
+                buffer.add(Character.toUpperCase(input.charAt(index)));
+                enumerateCaseTransformationsRecursiveHelperImproved(buffer, index + 1, input, result);
+                buffer.remove(buffer.size() - 1);
             }
         }
     }
