@@ -44,9 +44,6 @@ public class RecursionAlgorithms {
         System.out.println();
         printAllSetsOfSizeKOfAnInputSet(new ArrayList<>(), Arrays.asList(4, 2, 5, 6), 0, 2);
 
-        /**
-         * THIS CODE DOES NOT WORK STILL INVESTIGATING THE REASON
-         */
         System.out.println("ENUMERATE ALL SUBSETS OF A GIVEN SET OF INTEGERS ");
         final List<List<Integer>> subsetResultList = new ArrayList<>();
         enumerateAllSetsOfAnInputSet(new ArrayList<>(), Arrays.asList(4, 2, 5), 0, subsetResultList);
@@ -255,18 +252,10 @@ public class RecursionAlgorithms {
         }
     }
 
-    /**
-     * THIS CODE DOES NOT WORK STILL INVESTIGATING THE REASON
-     * @param slate
-     * @param input
-     * @param index
-     * @param result
-     */
     private static void enumerateAllSetsOfAnInputSet(final List<Integer> slate, final List<Integer> input, final int index,
                                                      final List<List<Integer>> result) {
         if (index == input.size()) {
-            result.add(slate);
-            return;
+            result.add(new ArrayList<>(slate));
         } else {
             slate.add(input.get(index));
             enumerateAllSetsOfAnInputSet(slate, input,index+1, result);
