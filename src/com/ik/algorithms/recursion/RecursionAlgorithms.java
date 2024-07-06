@@ -21,22 +21,32 @@ public class RecursionAlgorithms {
         System.out.println("ENUMERATE BINARY STRINGS OF LENGTH N ITERATIVE "+ enumerateStringsIterative(3));
         System.out.println("ENUMERATE ALL STRINGS OF LENGTH N RECURSIVE REPETITIONS ALLOWED FROM INPUT STRING");
         enumerateDecimalStringsRecursiveImproved(2, List.of("0", "1", "2", "3", "4", "5", "6", "7", "8", "9"));
+
         System.out.println("ENUMERATE ALL STRINGS OF LENGTH N RECURSIVE REPETITIONS NOT ALLOWED");
         enumerateDecimalStringsWithRepetitionsNotAllowed(List.of("0", "1", "2"));
+
         System.out.println("ENUMERATE ALL STRINGS OF LENGTH N WITH TRANSFORMING THE CASE OF EACH LETTER OF STRING ");
         final List<String> result = new ArrayList<>();
         enumerateCaseTransformationsRecursiveHelper("", 0, "a1b2", result);
         System.out.println(result);
         result.clear();
+
         System.out.println("ENUMERATE ALL STRINGS OF LENGTH N WITH TRANSFORMING THE CASE OF EACH LETTER OF STRING IMPROVED ");
         final List<Character> buffer = new ArrayList<>();
         enumerateCaseTransformationsRecursiveHelperImproved(buffer, 0, "a1b2", result);
         System.out.println(result);
-        System.out.println("PRINT ALL SUBSETS OF A GIVEN SET OF INTEGERS ");
-        final List<List<Integer>> subsetResult = new ArrayList<>();
-        printAllSetsOfAnInputSet(new ArrayList<>(), Arrays.asList(4, 2, 5), 0);
-        System.out.println(subsetResult);
 
+        System.out.println("PRINT ALL SUBSETS OF A GIVEN SET OF INTEGERS ");
+        printAllSetsOfAnInputSet(new ArrayList<>(), Arrays.asList(4, 2, 5), 0);
+
+        System.out.println("PRINT ALL SUBSETS OF SIZE K FOR A GIVEN SET OF INTEGERS ");
+        printAllSetsOfSizeKOfAnInputSet(new ArrayList<>(), Arrays.asList(4, 2, 5, 6), 0, 3);
+        System.out.println();
+        printAllSetsOfSizeKOfAnInputSet(new ArrayList<>(), Arrays.asList(4, 2, 5, 6), 0, 2);
+
+        /**
+         * THIS CODE DOES NOT WORK STILL INVESTIGATING THE REASON
+         */
         System.out.println("ENUMERATE ALL SUBSETS OF A GIVEN SET OF INTEGERS ");
         final List<List<Integer>> subsetResultList = new ArrayList<>();
         enumerateAllSetsOfAnInputSet(new ArrayList<>(), Arrays.asList(4, 2, 5), 0, subsetResultList);
@@ -232,6 +242,26 @@ public class RecursionAlgorithms {
         }
     }
 
+    private static void printAllSetsOfSizeKOfAnInputSet(final List<Integer> slate, final List<Integer> input, final int index, final Integer k) {
+        if (slate.size() == k) {
+            System.out.println(slate);
+        } else if (index == input.size()) {
+            return;
+        } else {
+            slate.add(input.get(index));
+            printAllSetsOfSizeKOfAnInputSet(slate, input,index+1, k);
+            slate.remove(slate.size() - 1);
+            printAllSetsOfSizeKOfAnInputSet(slate, input,index+1, k);
+        }
+    }
+
+    /**
+     * THIS CODE DOES NOT WORK STILL INVESTIGATING THE REASON
+     * @param slate
+     * @param input
+     * @param index
+     * @param result
+     */
     private static void enumerateAllSetsOfAnInputSet(final List<Integer> slate, final List<Integer> input, final int index,
                                                      final List<List<Integer>> result) {
         if (index == input.size()) {
@@ -239,9 +269,9 @@ public class RecursionAlgorithms {
             return;
         } else {
             slate.add(input.get(index));
-            printAllSetsOfAnInputSet(slate, input,index+1);
+            enumerateAllSetsOfAnInputSet(slate, input,index+1, result);
             slate.remove(slate.size() - 1);
-            printAllSetsOfAnInputSet(slate, input,index+1);
+            enumerateAllSetsOfAnInputSet(slate, input,index+1, result);
         }
     }
 }
