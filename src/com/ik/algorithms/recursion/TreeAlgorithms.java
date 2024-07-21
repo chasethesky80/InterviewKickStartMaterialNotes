@@ -1,6 +1,25 @@
 package com.ik.algorithms.recursion;
 
+import javax.swing.tree.TreeNode;
+
 public class TreeAlgorithms {
+
+    private BinaryTreeNode search(final BinaryTreeNode root, final int key) {
+        if (root == null) {
+            return null;
+        }
+        BinaryTreeNode current = root;
+        while (current != null) {
+            if (key == current.value) {
+                return current;
+            } else if (key < current.value) {
+                current = current.left;
+            } else {
+                current = current.right;
+            }
+        }
+        return null;
+    }
 
     private BinaryTreeNode getSuccessor(final BinaryTreeNode root, final BinaryTreeNode node) {
         if (root == null) {
@@ -33,11 +52,5 @@ public class TreeAlgorithms {
         }
         return null;
     }
-}
-
-class BinaryTreeNode {
-    public Integer value;
-    public BinaryTreeNode left;
-    public BinaryTreeNode right;
 }
 
