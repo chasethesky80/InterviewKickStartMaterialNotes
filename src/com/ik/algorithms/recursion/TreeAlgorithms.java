@@ -1,10 +1,14 @@
 package com.ik.algorithms.recursion;
 
-import javax.swing.tree.TreeNode;
-
 public class TreeAlgorithms {
 
-    private BinaryTreeNode search(final BinaryTreeNode root, final int key) {
+    /**
+     * TC = O(logN) - height of tree and SC = O(1)
+     * @param root
+     * @param key
+     * @return
+     */
+    private BinaryTreeNode searchIterative(final BinaryTreeNode root, final int key) {
         if (root == null) {
             return null;
         }
