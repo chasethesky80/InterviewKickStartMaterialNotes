@@ -42,7 +42,7 @@ public class TreeAlgorithms {
 
     /**
      * TC = O(logN) - height of tree and SC = O(1) for balanced tree
-     * NOTE: If all keys are in ascending order then time complexity is O(N) where N is number of nodes
+     * NOTE: If all keys are in ascending order then time complexity is O(N) where N is number of nodes like (1, 2, 3, 4, ....N)
      * @param root
      * @param key
      * @return
