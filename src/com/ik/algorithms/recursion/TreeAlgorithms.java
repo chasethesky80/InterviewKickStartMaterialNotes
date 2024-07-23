@@ -25,6 +25,52 @@ public class TreeAlgorithms {
         return null;
     }
 
+    private BinaryTreeNode searchRecursive(final BinaryTreeNode root, final int key) {
+        if (root == null || (root.left == null && root.right == null)) {
+            return null;
+        }
+        BinaryTreeNode current = root;
+        if (current.value == key) {
+            return current;
+        } else if (key < current.value) {
+            searchRecursive(current.left, key);
+        } else {
+            searchRecursive(current.right, key);
+        }
+        return null;
+    }
+
+    /**
+     * TC = O(logN) - height of tree and SC = O(1)
+     * @param root
+     * @param key
+     * @return
+     */
+    private BinaryTreeNode insert(final BinaryTreeNode root, final int key) throws Exception {
+        if (root == null) {
+            return null;
+        }
+        BinaryTreeNode current = root, prev = null, newNode = BinaryTreeNode.builder().value(key).build();
+        while (current != null) {
+            if (key == current.value) {
+                throw new Exception("NODE ALREADY EXISTS");
+            }
+            if (key < current.value) {
+                prev = current;
+                current = current.left;
+            } else {
+                prev = current;
+                current = current.right;
+            }
+        }
+        if (key > prev.value) {
+            prev.right = newNode;
+        } else if (key < prev.value) {
+            prev.left = newNode;
+        }
+        return newNode;
+    }
+
     private BinaryTreeNode getSuccessor(final BinaryTreeNode root, final BinaryTreeNode node) {
         if (root == null) {
             return null;
