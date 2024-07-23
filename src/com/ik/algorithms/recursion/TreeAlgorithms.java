@@ -72,6 +72,38 @@ public class TreeAlgorithms {
         return newNode;
     }
 
+    /**
+     * TC = O(logN) for a balanced binary tree
+     * @param root
+     * @return
+     */
+    private BinaryTreeNode findMinimumInBST(final BinaryTreeNode root) {
+        if (root == null) {
+            return null;
+        }
+        BinaryTreeNode current = root;
+        while (current.left != null) {
+            current = current.left;
+        }
+        return current;
+    }
+
+    /**
+     * TC = O(logN) for a balanced binary tree
+     * @param root
+     * @return
+     */
+    private BinaryTreeNode findMaximumInBST(final BinaryTreeNode root) {
+        if (root == null) {
+            return null;
+        }
+        BinaryTreeNode current = root;
+        while (current.right != null) {
+            current = current.right;
+        }
+        return current;
+    }
+
     private BinaryTreeNode getSuccessor(final BinaryTreeNode root, final BinaryTreeNode node) {
         if (root == null) {
             return null;
