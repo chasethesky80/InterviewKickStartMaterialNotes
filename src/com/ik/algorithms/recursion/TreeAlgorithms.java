@@ -1,5 +1,7 @@
 package com.ik.algorithms.recursion;
 
+import java.util.Objects;
+
 public class TreeAlgorithms {
 
     /**
@@ -89,7 +91,7 @@ public class TreeAlgorithms {
     }
 
     /**
-     * TC = O(logN) for a balanced binary tree
+     * TC = O(logN) for a balanced binary tree as it is height of the tree
      * @param root
      * @return
      */
@@ -121,19 +123,18 @@ public class TreeAlgorithms {
         }
         BinaryTreeNode curr = root;
         BinaryTreeNode ancestor = null;
-        while (curr != null) {
-            if (curr.value.equals(node.value)) {
-                return ancestor;
-            }
-            else if (curr.value < node.value) {
+        /**
+         * Record the ancestor making the first left turn till we reach the node we want to find ancestor for
+         */
+        while (!Objects.equals(curr.value, node.value)) {
+            if (node.value < curr.value) {
                 ancestor = curr;
                 curr = curr.left;
-            }
-            else {
+            } else {
                 curr = curr.right;
             }
         }
-        return null;
+        return ancestor;
     }
 }
 
